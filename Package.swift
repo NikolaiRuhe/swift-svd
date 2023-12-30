@@ -11,11 +11,21 @@ let package = Package(
             name: "SVD",
             targets: ["SVD"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
+    ],
     targets: [
         .target(
             name: "SVD"),
+        .executableTarget(
+            name: "SVDSwiftMMIO",
+            dependencies: [
+                "SVD",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
         .testTarget(
             name: "SVDTests",
-            dependencies: ["SVD"]),
+            dependencies: ["SVD", "SVDSwiftMMIO"]),
     ]
 )
